@@ -1,2 +1,2 @@
 # Speed_Aya
-SPEEDWAVE
+SCRIPT SPEED.EXE 💫
