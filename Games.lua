@@ -4,5 +4,6 @@ local Games = {
   [4924922222] = "https://raw.githubusercontent.com/speedwavevip/Speed_Aya/refs/heads/main/Brookhaven%20lraq.lua", -- Brookhaven
   [116495829188952] = "https://raw.githubusercontent.com/speedwavevip/Speed_Aya/refs/heads/main/Dead%20Ralis", -- Dead Ralis
   [70876832253163] = "https://raw.githubusercontent.com/speedwavevip/Speed_Aya/refs/heads/main/Dead%20Ralis", -- Dead Ralis
+  [4924922222] = "https://raw.githubusercontent.com/speedwavevip/Speed_Aya/refs/heads/main/What", -- سكنات
 }
 return Games
