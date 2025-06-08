@@ -1,0 +1,400 @@
+loadstring(game:HttpGet(("https://pastefy.app/XQG9AE0D/raw")))()
+MakeWindow({
+      Hub = {
+        Title = "S7 hub  نسخه : Troll",
+        Animation = "S7 HUB يرحب بكم"
+      },
+      Key = {
+        KeySystem = false,
+        Title = "Key System",
+        Description = "",
+        KeyLink = "",
+        Keys = {"1234"},
+        Notifi = {
+          Notifications = true,
+          CorrectKey = "Running the Script...",
+          Incorrectkey = "The key is incorrect",
+          CopyKeyLink = "Copied to Clipboard"
+        }
+      }
+    })
+    MinimizeButton({
+        Image = "rbxassetid://140119830375893",
+        Size = {50,50},
+        Color = Color3.fromRGB(10, 10, 10),
+        Corner = true,
+        Stroke = false,
+        StrokeColor = Color3.fromRGB(0, 0, 0),
+      })
+      local Main = MakeTab({Name = "الحقوق"})
+      local Image = AddImageLabel(Main, {
+        Name = "اهلا بكم في سكربت سيف",
+        Image = "rbxassetid://140119830375893"
+      })
+      local section = AddSection(Main, {"جميع روابطي في سوشال مدیا "})       
+        AddButton(Main, {
+            Name = "اضغط هنا لنسخ سيرفر الديسكورد",
+            Callback = function()
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "تم النسخ";
+                    Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                    Duration = 5;
+                })
+        
+              setclipboard('https://discord.gg/gBQp3GuW2R')
+            end
+          })
+        
+          AddButton(Main, {
+            Name = "اضغط هنا لنسخ قناتي التليجرام",
+            Callback = function()
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "تم النسخ";
+                    Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                    Duration = 5;
+                })
+        
+              setclipboard('https://t.me/s7_script')
+            end
+          })
+      
+      
+          AddButton(Main, {
+              Name = " اضغط هنا لنسخ مجموعتي في روبلوكس",
+              Callback = function()
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "تم النسخ";
+                    Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                    Duration = 5;
+                })
+            
+                setclipboard('https://www.roblox.com/ar/communities/33577470/S7#!/about')
+              end
+            })
+            
+            AddButton(Main, {
+                Name = "اضغط هنا لنسخ رابط مابي",
+                Callback = function()
+                    game.StarterGui:SetCore("SendNotification", {
+                        Title = "تم النسخ";
+                        Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                        Duration = 5;
+                    })
+            
+                  setclipboard('https://www.roblox.com/ar/games/133112787303711/Collector-Simulator#!/game-instances')
+                end
+              })
+            
+              AddButton(Main, {
+                Name = "اضغط هنا لنسخ يوزري في روبلوكس",
+                Callback = function()
+                    game.StarterGui:SetCore("SendNotification", {
+                        Title = "تم النسخ";
+                        Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                        Duration = 5;
+                    })
+            
+                  setclipboard('SAIF_LOOVE')
+                end
+              })
+      
+            
+              local section = AddSection(Main, {"روابط المطور :"})
+              local section = AddSection(Main, {"نفس الاسم في التيك :)"})
+              AddButton(Main, {
+                Name = "اضغط هنا لنسخ يوزري في روبلوكس ",
+                Callback = function()
+                    game.StarterGui:SetCore("SendNotification", {
+                        Title = "تم النسخ";
+                        Text = " تم نسخ الاسم في الحافظه"; -- ARAB TEAM
+                        Duration = 5;
+                    })
+            
+                  setclipboard('uooooo943')
+                end
+              })
+
+              local Main = MakeTab({Name = "القتل"})
+              local section = AddSection(Main, {"قبل القتل أخذ كنبة"})
+              AddButton(Main, {
+                Name = "كنبة",
+                Callback = function()
+                  local args={[1]="PickingTools",[2]="Couch"};game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+                end
+              })
+              
+              -- Serviços necessários
+              local playerService = game:GetService('Players')
+              local runService = game:GetService('RunService')
+              local player = playerService.LocalPlayer
+              
+              -- Variáveis globais
+              local selectedPlayer = nil
+              local selectedKillAdvancedPlayer = nil
+              local couchEquipped = false
+              local playerDropdownV13
+              
+              -- Função para obter a lista de jogadores
+              local function getPlayerList()
+                  local playerList = {}
+                  for _, player in ipairs(playerService:GetPlayers()) do
+                      if player ~= playerService.LocalPlayer then
+                          table.insert(playerList, player.Name)
+                      end
+                  end
+                  return playerList
+              end
+              
+              -- Função para atualizar o dropdown
+              local function updateDropdown(dropdown)
+                  UpdateDropdown(dropdown, getPlayerList())
+              end
+              
+              -- Função para encontrar jogador por nome
+              local function gplr(String)
+                  local strl = String:lower()
+                  local Found = {}
+                  for _, v in pairs(playerService:GetPlayers()) do
+                      if v.Name:lower():sub(1, #strl) == strl then
+                          table.insert(Found, v)
+                      end
+                  end
+                  return Found
+              end
+              
+              -- Função para flingar jogador (V13)
+              local function flingPlayer(targetName)
+                  local Target = gplr(targetName)
+                  if Target[1] then
+                      Target = Target[1]
+                      
+                      local Thrust = Instance.new('BodyThrust', player.Character.HumanoidRootPart)
+                      Thrust.Force = Vector3.new(999, 999, 999)
+                      Thrust.Name = "FlingForce"
+                      repeat
+                          player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+                          Thrust.Location = Target.Character.HumanoidRootPart.Position
+                          runService.Heartbeat:Wait()
+                      until not Target.Character:FindFirstChild("Head")
+                  end
+              end
+              
+              -- Interface para Fling V13
+              playerDropdownV13 = AddDropdown(Main, {
+                  Name = "اختار الاعب الي تريده",
+                  Default = "",
+                  Options = getPlayerList(),
+                  Callback = function(value)
+                      selectedPlayer = value
+                  end
+              })
+              
+              AddButton(Main, {
+                  Name = "قتل الاعب",
+                  Callback = function()
+                      if selectedPlayer then
+                          flingPlayer(selectedPlayer)
+                      end
+                  end
+              })
+              
+              -- Atualiza a lista de jogadores quando os jogadores entram ou saem do jogo
+              playerService.PlayerAdded:Connect(function()
+                  updateDropdown(playerDropdownV13)
+              end)
+              
+              playerService.PlayerRemoving:Connect(function()
+                  updateDropdown(playerDropdownV13)
+              end)
+              
+              -- Atualiza a lista de jogadores ao iniciar o script
+              updateDropdown(playerDropdownV13)
+              
+              AddButton(Main, {
+                Name = "قتل الكل",
+              Callback = function()
+                  local args={[1]="PickingTools",[2]="Couch"};game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+                  loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+                  end
+              })
+              
+              -- Serviços necessários
+              local playerService = game:GetService('Players')
+              local runService = game:GetService('RunService')
+              local localPlayer = playerService.LocalPlayer
+              
+              -- Variáveis globais
+              local flingV14Toggle = false
+              local currentPlayerIndex = 1
+              local flingV14Connection
+              local players
+              
+              -- Função para teleportar para a coordenada específica
+              local function teleportToCoordinate()
+                  local teleportPosition = Vector3.new(-58, 54, -183) -- Coordenada para onde você deseja teleportar
+                  if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                      localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(teleportPosition)
+                  end
+              end
+              
+              -- Função para flingar jogadores em sequência
+              local function flingPlayersInSequence()
+                  if flingV14Toggle then
+                      -- Obtém a lista de jogadores uma vez
+                      players = playerService:GetPlayers()
+                      
+                      -- Reseta o índice do jogador atual
+                      currentPlayerIndex = 1
+                      
+                      -- Looping de teleportes em cada jogador
+                      flingV14Connection = runService.Heartbeat:Connect(function()
+                          -- Ignora o jogador local
+                          while players[currentPlayerIndex] == localPlayer do
+                              currentPlayerIndex = currentPlayerIndex + 1
+                              if currentPlayerIndex > #players then
+                                  currentPlayerIndex = 1
+                              end
+                          end
+                          
+                          local targetPlayer = players[currentPlayerIndex]
+                          if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                              if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                  localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+              
+                                  -- Verifica se o jogador alvo está sentado
+                                  if targetPlayer.Character:FindFirstChild("Humanoid") and targetPlayer.Character.Humanoid.SeatPart then
+                                      teleportToCoordinate()
+                                      
+                                      -- Espera 3 segundos antes de ir para o próximo jogador
+                                      wait(5)
+                                      currentPlayerIndex = currentPlayerIndex + 1
+                                      
+                                      if currentPlayerIndex > #players then
+                                          currentPlayerIndex = 1
+                                      end
+                                  end
+                              end
+                          end
+                      end)
+                  end
+              end
+              
+              -- Função de callback para o toggle
+              local function onFlingV14Toggle(value)
+                  flingV14Toggle = value
+                  if flingV14Toggle then
+                      flingPlayersInSequence()
+                  else
+                      -- Desconecta as conexões quando o toggle é desativado
+                      if flingV14Connection then
+                          flingV14Connection:Disconnect()
+                          flingV14Connection = nil
+                      end
+                  end
+              end
+              
+              -- Adiciona o Toggle para ativar/desativar o Fling V14
+              AddToggle(Main, {
+                  Name = "تطير الكل",
+                  Default = false,
+                  Callback = onFlingV14Toggle
+              })
+              
+              -- Variável para armazenar a posição original do jogador
+              local originalPosition
+              
+              -- Função para salvar a posição original do jogador
+              local function saveOriginalPosition()
+                  local character = game.Players.LocalPlayer.Character
+                  if character then
+                      originalPosition = character.HumanoidRootPart.CFrame
+                      print("Posição original salva:", originalPosition)
+                  else
+                      print("Erro ao salvar a posição original: personagem não encontrado.")
+                  end
+              end
+              
+              -- Função para teleportar de volta para a posição original
+              local function teleportToOriginalPosition()
+                  local character = game.Players.LocalPlayer.Character
+                  if character and originalPosition then
+                      character.HumanoidRootPart.CFrame = originalPosition
+                      print("Teleportado de volta para a posição original!")
+                  else
+                      print("Erro ao teleportar de volta para a posição original.")
+                  end
+              end
+              
+              -- Função para executar a ação de alerta com a arma
+              local function alarmGun()
+                  -- Salvar a posição original antes de teleportar
+                  saveOriginalPosition()
+              
+                  -- Puxa o item Sniper
+                  local args = {
+                      [1] = "PickingTools",
+                      [2] = "Sniper"
+                  }
+                  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+              
+                  -- Equipa o item Sniper
+                  local backpack = game.Players.LocalPlayer.Backpack
+                  local character = game.Players.LocalPlayer.Character
+              
+                  local sniper = backpack:FindFirstChild("Sniper") or character:FindFirstChild("Sniper")
+              
+                  if sniper then
+                      -- Se o item for encontrado, equipá-lo
+                      game.Players.LocalPlayer.Character.Humanoid:EquipTool(sniper)
+              
+                      -- Salvar a posição atual do jogador
+                      local currentPosition = character.HumanoidRootPart.CFrame
+              
+                      -- Teleportar o jogador para as coordenadas especificadas
+                      character.HumanoidRootPart.CFrame = CFrame.new(315, 5, 42)
+              
+                      print("AlarmGun equipado e jogador teleportado!")
+              
+                      -- Esperar um pouco antes de teleportar de volta para garantir que a animação seja concluída
+                      wait(2)
+              
+                      -- Teleportar de volta para a posição original após usar a Sniper
+                      teleportToOriginalPosition()
+                  else
+                      -- Se o item não for encontrado, exibir uma mensagem de erro
+                      print("Sniper não encontrado no inventário ou personagem.")
+                  end
+              end
+              AddButton(Main, {
+                Name = "تطير الناس",
+                Callback = function()
+                  local args={[1]="PickingTools",[2]="Couch"};game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+                  loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
+                end
+              })
+
+-- Auto-update player list
+game:GetService("Players").PlayerAdded:Connect(function()
+  Tab:UpdateDropdown("Select Player", GetPlayerList(), "")
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function()
+  Tab:UpdateDropdown("Select Player", GetPlayerList(), "")
+end)
+
+-- Add refresh button
+AddButton(Main, {
+  Name = "تحديث الاسماء",
+  Callback = function()
+      Tab:UpdateDropdown("Select Player", GetPlayerList(), "")
+  end
+})
+
+-- Update player list when players join/leave
+game:GetService("Players").PlayerAdded:Connect(function()
+  Tab:UpdateDropdown("Select Player", GetPlayerList(), "")
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function()
+  Tab:UpdateDropdown("Select Player", GetPlayerList(), "")
+end)
