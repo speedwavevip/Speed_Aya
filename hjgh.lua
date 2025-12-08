@@ -1772,89 +1772,88 @@ function Library.new(config)
 				};
 			end;
 
-			function SectionTable:NewTextLabel(cfg)
+			function SectionTable:NewLabel(cfg)
     cfg = Config(cfg, {
         Title = "Label",
-        MinHeight = 25,
-        Padding = 10,
-        TextSize = 12,
-        AutoSize = true
+        Icon = "",
+        Position = "Left"
     });
 
-    local TextLabelFrame = Instance.new("Frame")
+    local LabelFrame = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
     local UIStroke = Instance.new("UIStroke")
     local ContentLabel = Instance.new("TextLabel")
+    local IconImage
 
-    TextLabelFrame.Name = "TextLabelFrame"
-    TextLabelFrame.Parent = Section
-    TextLabelFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    TextLabelFrame.BackgroundTransparency = 0
-    TextLabelFrame.BorderSizePixel = 0
-    
-    if cfg.AutoSize then
-        TextLabelFrame.AutomaticSize = Enum.AutomaticSize.Y
-        TextLabelFrame.Size = UDim2.new(1, 0, 0, cfg.MinHeight)
-    else
-        TextLabelFrame.Size = cfg.Size or UDim2.new(1, 0, 0, cfg.MinHeight)
-    end
+    LabelFrame.Name = "LabelFrame"
+    LabelFrame.Parent = Section
+    LabelFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    LabelFrame.BackgroundTransparency = 0
+    LabelFrame.BorderSizePixel = 0
+    LabelFrame.Size = UDim2.new(1, 0, 0, 30)
 
     UICorner.CornerRadius = UDim.new(0, 4)
-    UICorner.Parent = TextLabelFrame
+    UICorner.Parent = LabelFrame
 
     UIStroke.Color = Color3.fromRGB(60, 60, 60)
     UIStroke.Thickness = 2
-    UIStroke.Parent = TextLabelFrame
+    UIStroke.Parent = LabelFrame
+
+    if cfg.Icon and cfg.Icon ~= "" then
+        IconImage = Instance.new("ImageLabel")
+        IconImage.Name = "Icon"
+        IconImage.Image = cfg.Icon
+        IconImage.Size = UDim2.new(0, 20, 0, 20)
+        IconImage.BackgroundTransparency = 1
+        IconImage.Parent = LabelFrame
+        
+        if cfg.Position == "Right" then
+            IconImage.Position = UDim2.new(1, -25, 0.5, -10)
+        else
+            IconImage.Position = UDim2.new(0, 10, 0.5, -10)
+        end
+    end
 
     ContentLabel.Name = "ContentLabel"
     ContentLabel.Text = cfg.Title
     ContentLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ContentLabel.TextSize = cfg.TextSize
+    ContentLabel.TextSize = 14
     ContentLabel.Font = Enum.Font.Gotham
-    ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
-    ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
     ContentLabel.BackgroundTransparency = 1
     ContentLabel.TextWrapped = true
-    ContentLabel.RichText = true
-    ContentLabel.Parent = TextLabelFrame
+    ContentLabel.Parent = LabelFrame
 
-    ContentLabel.Size = UDim2.new(1, -cfg.Padding*2, 0, 0)
-    ContentLabel.Position = UDim2.new(0, cfg.Padding, 0, cfg.Padding)
-
-    if cfg.AutoSize then
-        ContentLabel.AutomaticSize = Enum.AutomaticSize.Y
-        ContentLabel:GetPropertyChangedSignal("TextBounds"):Connect(function()
-            local requiredHeight = ContentLabel.TextBounds.Y + cfg.Padding*2
-            TextLabelFrame.Size = UDim2.new(1, 0, 0, math.max(cfg.MinHeight, requiredHeight))
-        end)
+    if cfg.Position == "Right" then
+        ContentLabel.TextXAlignment = Enum.TextXAlignment.Right
+        ContentLabel.Position = UDim2.new(0, 10, 0, 0)
+        ContentLabel.Size = UDim2.new(1, -20, 1, 0)
+        if IconImage then
+            ContentLabel.Size = UDim2.new(1, -40, 1, 0)
+        end
     else
-        ContentLabel.Size = UDim2.new(1, -cfg.Padding*2, 1, -cfg.Padding*2)
+        ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
+        ContentLabel.Position = UDim2.new(0, 10, 0, 0)
+        ContentLabel.Size = UDim2.new(1, -20, 1, 0)
+        if IconImage then
+            ContentLabel.Position = UDim2.new(0, 35, 0, 0)
+            ContentLabel.Size = UDim2.new(1, -45, 1, 0)
+        end
     end
 
     local function SetText(newText)
         ContentLabel.Text = newText
     end
 
-    local function SetTextSize(size)
-        ContentLabel.TextSize = size
-    end
-
     return {
         Update = SetText,
-        SetTextSize = SetTextSize,
         GetLabel = function() return ContentLabel end,
-        GetFrame = function() return TextLabelFrame end,
+        GetFrame = function() return LabelFrame end,
         Visible = function(state)
-            TextLabelFrame.Visible = state
+            LabelFrame.Visible = state
         end
     }
-end
-
-function SectionTable:SetLabel(label, newValue)
-    if label and type(label.Update) == "function" then
-        label:Update(newValue)
-    end
 			end
+			
 			function SectionTable:NewKeybind(ctfx)
 				ctfx = Config(ctfx,{
 					Title = "Keybind",
