@@ -1772,6 +1772,89 @@ function Library.new(config)
 				};
 			end;
 
+			function SectionTable:NewTextLabel(cfg)
+    cfg = Config(cfg, {
+        Title = "Label",
+        MinHeight = 25,
+        Padding = 10,
+        TextSize = 12,
+        AutoSize = true
+    });
+
+    local TextLabelFrame = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local UIStroke = Instance.new("UIStroke")
+    local ContentLabel = Instance.new("TextLabel")
+
+    TextLabelFrame.Name = "TextLabelFrame"
+    TextLabelFrame.Parent = Section
+    TextLabelFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    TextLabelFrame.BackgroundTransparency = 0
+    TextLabelFrame.BorderSizePixel = 0
+    
+    if cfg.AutoSize then
+        TextLabelFrame.AutomaticSize = Enum.AutomaticSize.Y
+        TextLabelFrame.Size = UDim2.new(1, 0, 0, cfg.MinHeight)
+    else
+        TextLabelFrame.Size = cfg.Size or UDim2.new(1, 0, 0, cfg.MinHeight)
+    end
+
+    UICorner.CornerRadius = UDim.new(0, 4)
+    UICorner.Parent = TextLabelFrame
+
+    UIStroke.Color = Color3.fromRGB(60, 60, 60)
+    UIStroke.Thickness = 2
+    UIStroke.Parent = TextLabelFrame
+
+    ContentLabel.Name = "ContentLabel"
+    ContentLabel.Text = cfg.Title
+    ContentLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ContentLabel.TextSize = cfg.TextSize
+    ContentLabel.Font = Enum.Font.Gotham
+    ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
+    ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
+    ContentLabel.BackgroundTransparency = 1
+    ContentLabel.TextWrapped = true
+    ContentLabel.RichText = true
+    ContentLabel.Parent = TextLabelFrame
+
+    ContentLabel.Size = UDim2.new(1, -cfg.Padding*2, 0, 0)
+    ContentLabel.Position = UDim2.new(0, cfg.Padding, 0, cfg.Padding)
+
+    if cfg.AutoSize then
+        ContentLabel.AutomaticSize = Enum.AutomaticSize.Y
+        ContentLabel:GetPropertyChangedSignal("TextBounds"):Connect(function()
+            local requiredHeight = ContentLabel.TextBounds.Y + cfg.Padding*2
+            TextLabelFrame.Size = UDim2.new(1, 0, 0, math.max(cfg.MinHeight, requiredHeight))
+        end)
+    else
+        ContentLabel.Size = UDim2.new(1, -cfg.Padding*2, 1, -cfg.Padding*2)
+    end
+
+    local function SetText(newText)
+        ContentLabel.Text = newText
+    end
+
+    local function SetTextSize(size)
+        ContentLabel.TextSize = size
+    end
+
+    return {
+        Update = SetText,
+        SetTextSize = SetTextSize,
+        GetLabel = function() return ContentLabel end,
+        GetFrame = function() return TextLabelFrame end,
+        Visible = function(state)
+            TextLabelFrame.Visible = state
+        end
+    }
+end
+
+function SectionTable:SetLabel(label, newValue)
+    if label and type(label.Update) == "function" then
+        label:Update(newValue)
+    end
+			end
 			function SectionTable:NewKeybind(ctfx)
 				ctfx = Config(ctfx,{
 					Title = "Keybind",
