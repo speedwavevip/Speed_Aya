@@ -1,4 +1,3 @@
---This file was protected with Obfuscator SPEED WAVE
 loadstring((function()
 local _CEDjZJDjiq=string.char
 local _axDRVWXwEf=string.byte
